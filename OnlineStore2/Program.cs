@@ -6,7 +6,7 @@ namespace OnlineStore2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Online Store minion you lose!");
         }
     }
 }
