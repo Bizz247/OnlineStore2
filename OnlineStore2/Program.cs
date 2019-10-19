@@ -45,6 +45,7 @@ namespace OnlineStore2
         #endregion
 
         #region MenuOption
+
         public static string ShowMainMenu()
         {
             Console.WriteLine("Please select and option of what you would like to do.");
