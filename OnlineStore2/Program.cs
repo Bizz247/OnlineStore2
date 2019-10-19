@@ -15,29 +15,23 @@ namespace OnlineStore2
             while (true)
             {
                 var option = ShowMainMenu();
+               
                 switch (option)
                 {
                     case "1":
-                        generateNewUser();
-                        option = ShowMainMenu();
+                        generateNewUser();                      
                         break;
                     case "2":
-                        Console.WriteLine("feature coming soon!");
-                        option = ShowMainMenu();
+                        featureComingSoon();
                         break;
                     case "3":
-                        Console.WriteLine("feature coming soon!");
-                        option = ShowMainMenu();
+                        featureComingSoon();
                         break;
                     case "4":
-                        Console.WriteLine("feature coming soon!");
-                        option = ShowMainMenu();
+                        featureComingSoon();
                         break;
                     case "5":
-                        Console.WriteLine("Thanks for checking out Online Store v1, Bye!");
-                        Stopwatch startSleep = new Stopwatch();
-                        startSleep.Start();
-                        while (startSleep.Elapsed.TotalSeconds < 5) { };
+                        exit();
                         return;
                 }
             }
@@ -56,6 +50,26 @@ namespace OnlineStore2
             var option = Console.ReadLine();
             Console.Write("");
             return option;
+        }
+
+        public static void featureComingSoon()
+        {
+            Stopwatch startSleep = new Stopwatch();
+            Console.Clear();
+            startSleep.Start();
+            Console.WriteLine("feature coming soon!");
+            while (startSleep.Elapsed.TotalSeconds < 3) { };
+            startSleep.Stop();
+            Console.Clear();
+        }
+
+        public static void exit()
+        {
+            Stopwatch startSleep = new Stopwatch();
+            Console.Clear();        
+            startSleep.Start();
+            Console.WriteLine("Thanks for checking out Online Store v1, Bye!");
+            while (startSleep.Elapsed.TotalSeconds < 3) { };
         }
         #endregion
 
@@ -88,7 +102,7 @@ namespace OnlineStore2
             user.PaymentCard = card;
             user.addCreationDate();
             user.updateLastUpdated();
-            Console.WriteLine("");
+            Console.Clear();
             Console.WriteLine("New user successfully created!");
             Console.WriteLine("FirstName: " + user.FirstName + "\nLastName: " + user.LastName + "\nStreet Address: "+ user.address.Street + "\nCity:"+user.address.City+"\nState:"+user.address.State + "\nZipCode:" + user.address.ZipCode + "\nEmailAddress: "+user.EmailAddress+"\nPhoneNumber: "+user.PhoneNumber+"\nCreationDate: "+ user.CreationDate);
 
