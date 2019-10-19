@@ -10,10 +10,11 @@ namespace OnlineStore2
         static void Main(string[] args)
         {
             Console.WriteLine("###-Welcome to Online Store v1-###");
-
-            var option = ShowMainMenu();
-            while (option != "5")
+            
+            //Only exit if option 5 is selected
+            while (true)
             {
+                var option = ShowMainMenu();
                 switch (option)
                 {
                     case "1":
@@ -32,20 +33,16 @@ namespace OnlineStore2
                         Console.WriteLine("feature coming soon!");
                         option = ShowMainMenu();
                         break;
+                    case "5":
+                        Console.WriteLine("Thanks for checking out Online Store v1, Bye!");
+                        Stopwatch startSleep = new Stopwatch();
+                        startSleep.Start();
+                        while (startSleep.Elapsed.TotalSeconds < 5) { };
+                        return;
                 }
-
             }
-
-            if (option == "5")
-            {
-                Console.WriteLine("Thanks for checking out Online Store v1, Bye!");
-                Stopwatch startSleep = new Stopwatch();
-                startSleep.Start();
-                while (startSleep.Elapsed.TotalSeconds < 5) { };
-            }
-            #endregion
-
         }
+        #endregion
 
         #region MenuOption
         public static string ShowMainMenu()
