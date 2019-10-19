@@ -21,7 +21,6 @@ namespace Online_Store
         #endregion
 
         #region Methods
-
         public void addCreationDate()
         {
             DateTime date = DateTime.Now;
@@ -33,7 +32,6 @@ namespace Online_Store
             DateTime date = DateTime.Now;
             LastUpdated = date;
         }
-
         #endregion
     }
 

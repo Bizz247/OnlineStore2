@@ -45,7 +45,6 @@ namespace OnlineStore2
         #endregion
 
         #region MenuOption
-
         public static string ShowMainMenu()
         {
             Console.WriteLine("Please select and option of what you would like to do.");
@@ -60,8 +59,7 @@ namespace OnlineStore2
         }
         #endregion
 
-        #region User Creation functions
-
+        #region User Creation Functions
         public static UserAccount generateNewUser()
         {
             Console.WriteLine("##-New User-##");
@@ -132,7 +130,6 @@ namespace OnlineStore2
 
             return cardInfo;
         }
-
         #endregion
     }
 }
