@@ -19,7 +19,8 @@ namespace OnlineStore2
                 switch (option)
                 {
                     case "1":
-                        generateNewUser();                      
+                        var user = generateNewUser();
+                        displayUser(user);
                         break;
                     case "2":
                         featureComingSoon();
@@ -77,7 +78,6 @@ namespace OnlineStore2
         public static UserAccount generateNewUser()
         {
             Console.WriteLine("##-New User-##");
-            Console.WriteLine("");
             Console.Write("FirstName:");
             var firstName = Console.ReadLine();
 
@@ -103,11 +103,17 @@ namespace OnlineStore2
             user.addCreationDate();
             user.updateLastUpdated();
             Console.Clear();
-            Console.WriteLine("New user successfully created!");
-            Console.WriteLine("FirstName: " + user.FirstName + "\nLastName: " + user.LastName + "\nStreet Address: "+ user.address.Street + "\nCity:"+user.address.City+"\nState:"+user.address.State + "\nZipCode:" + user.address.ZipCode + "\nEmailAddress: "+user.EmailAddress+"\nPhoneNumber: "+user.PhoneNumber+"\nCreationDate: "+ user.CreationDate);
-
             return user;
 
+        }
+        public static void displayUser (UserAccount user)
+        {
+            Console.Clear();
+            Console.WriteLine("##-" + user.FirstName + " " + user.LastName + "-##");
+            Console.WriteLine("FirstName: " + user.FirstName + "\nLastName: " + user.LastName + "\nStreet Address: " + user.address.Street + "\nCity:" + user.address.City + "\nState:" + user.address.State + "\nZipCode:" + user.address.ZipCode + "\nEmailAddress: " + user.EmailAddress + "\nPhoneNumber: " + user.PhoneNumber + "\nCreationDate: " + user.CreationDate);
+            Console.Write("Press Enter to return to main menu...");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         public static Address getNewAddress()
