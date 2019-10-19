@@ -138,12 +138,32 @@ namespace OnlineStore2
         public static CardInfo getCardInfo()
         {
             Console.Write("CardNumber:");
+            CardInfo cardInfo = new CardInfo();
             var cardNumber = Console.ReadLine();
+            switch (cardNumber[0].ToString())
+            {
+                case "3":
+                    cardInfo.CardType = TypeOfCreditCard.Amex;
+                    break;
+                case "4":
+                    cardInfo.CardType = TypeOfCreditCard.Visa;
+                    break;
+                case "5":
+                    cardInfo.CardType = TypeOfCreditCard.MasterCard;
+                    break;
+                case "6":
+                    cardInfo.CardType = TypeOfCreditCard.Discover;
+                    break;
+                default:
+                    cardInfo.CardType = TypeOfCreditCard.Invalid;
+                    break;
+            }
+
             Console.Write("ExpDate:");
             var expDate = Console.ReadLine();
             Console.Write("SecurityCode:");
             var securityCode = Console.ReadLine();
-            CardInfo cardInfo = new CardInfo();
+            
             cardInfo.CardNumber = cardNumber;
             cardInfo.ExpDate = expDate;
             cardInfo.SecurityCode = securityCode;
