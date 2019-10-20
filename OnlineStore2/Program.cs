@@ -1,7 +1,6 @@
 ﻿using Online_Store;
 using System;
 using System.Diagnostics;
-
 namespace OnlineStore2
 {
     class Program
@@ -137,39 +136,36 @@ namespace OnlineStore2
 
         public static CardInfo getCardInfo()
         {
-            Console.Write("CardNumber:");
             CardInfo cardInfo = new CardInfo();
-            var cardNumber = Console.ReadLine();
-            switch (cardNumber[0].ToString())
+
+            //Make sure the card number is a valid card number or try again
+            while (true)
             {
-                case "3":
-                    cardInfo.CardType = TypeOfCreditCard.Amex;
+                Console.Write("CardNumber:");
+                var cardNumber = Console.ReadLine();
+                cardInfo.getCreditCardType(cardNumber);
+                if (cardInfo.CardType != TypeOfCreditCard.Invalid)
+                {
+                    cardInfo.CardNumber = cardNumber;
                     break;
-                case "4":
-                    cardInfo.CardType = TypeOfCreditCard.Visa;
-                    break;
-                case "5":
-                    cardInfo.CardType = TypeOfCreditCard.MasterCard;
-                    break;
-                case "6":
-                    cardInfo.CardType = TypeOfCreditCard.Discover;
-                    break;
-                default:
-                    cardInfo.CardType = TypeOfCreditCard.Invalid;
-                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid card number, please try again.");
+                }
             }
+
 
             Console.Write("ExpDate:");
             var expDate = Console.ReadLine();
             Console.Write("SecurityCode:");
             var securityCode = Console.ReadLine();
-            
-            cardInfo.CardNumber = cardNumber;
             cardInfo.ExpDate = expDate;
             cardInfo.SecurityCode = securityCode;
 
             return cardInfo;
         }
+
         #endregion
     }
 }
