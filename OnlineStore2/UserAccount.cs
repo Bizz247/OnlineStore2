@@ -7,6 +7,7 @@ namespace Online_Store
     
     class UserAccount
     {
+        private static int totalAccounts = 0;
         #region Properties
 
         public string FirstName { get; set; }
@@ -17,6 +18,7 @@ namespace Online_Store
         public Online_Store.CardInfo PaymentCard { get; set; }
         public DateTime CreationDate { get; private set; }
         public DateTime LastUpdated { get; private set; }
+        public int accountNumber { get; private set; }
 
         #endregion
 
@@ -31,6 +33,12 @@ namespace Online_Store
         {
             DateTime date = DateTime.Now;
             LastUpdated = date;
+        }
+
+        public void updateAccountNumber()
+        {
+            totalAccounts++;
+            accountNumber = totalAccounts;
         }
         #endregion
     }
