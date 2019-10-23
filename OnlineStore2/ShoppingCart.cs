@@ -6,6 +6,6 @@ namespace Online_Store
 {
     class ShoppingCart
     {
-        public Online_Store.InventoryItem Item { get; set; }
+        public InventoryItem Item { get; private set; }
     }
 }
