@@ -12,7 +12,7 @@ namespace Online_Store
         Amex,
         Invalid
     }
-    class CardInfo
+    internal class CardInfo
     {
         public string CardNumber { get; set; }
         public string ExpDate { get; set; }
@@ -39,6 +39,37 @@ namespace Online_Store
                     CardType = TypeOfCreditCard.Invalid;
                     break;
             }
+        }
+        public static CardInfo getCardInfo()
+        {
+            CardInfo cardInfo = new CardInfo();
+
+            //Make sure the card number is a valid card number or try again
+            while (true)
+            {
+                Console.Write("CardNumber:");
+                var cardNumber = Console.ReadLine();
+                cardInfo.getCreditCardType(cardNumber);
+                if (cardInfo.CardType != TypeOfCreditCard.Invalid)
+                {
+                    cardInfo.CardNumber = cardNumber;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid card number, please try again.");
+                }
+            }
+
+
+            Console.Write("ExpDate:");
+            var expDate = Console.ReadLine();
+            Console.Write("SecurityCode:");
+            var securityCode = Console.ReadLine();
+            cardInfo.ExpDate = expDate;
+            cardInfo.SecurityCode = securityCode;
+
+            return cardInfo;
         }
     }
 
