@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Online_Store;
 using OnlineStore2;
@@ -7,7 +8,7 @@ using OnlineStore2;
 namespace Online_Store
 {
     
-    internal class UserAccount
+    class UserAccount
     {
         #region private objects
         private static List<UserAccount> Users = new List<UserAccount>();
@@ -129,32 +130,31 @@ namespace Online_Store
 
         public static void userSearchByEmail()
         {
-            List<UserAccount> userSearchResults = new List<UserAccount>();
-
             Console.Clear();
             Console.Write("Email to search: ");
             var emailAddress = Console.ReadLine();
 
-            foreach (UserAccount user in Users)
-            {
-                if (user.EmailAddress == emailAddress)
-                {
-                    userSearchResults.Add(user);
-                }
-            }
-            if (userSearchResults.Count == 0)
+            var accounts = getUserByEmail(emailAddress);
+            int totalAccounts = accounts.Count();
+            if (totalAccounts == 0)
             {
                 Console.WriteLine("No users found with email address - " + emailAddress);
             }
             else
             {
-                Console.WriteLine("Total Users Found: " + userSearchResults.Count);
-                foreach (UserAccount user in userSearchResults)
+                Console.WriteLine("Total Users Found: " + totalAccounts);
+                foreach (var user in accounts)
                 {
                     MenuActions.displayUser(user, true);
                 }
             }
         }
+
+        public static IEnumerable<UserAccount> getUserByEmail(string emailAddress)
+        {
+            return Users.Where(a => a.EmailAddress == emailAddress);
+        }
+
         #endregion
     }
 

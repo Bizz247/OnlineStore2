@@ -12,7 +12,7 @@ namespace Online_Store
         Amex,
         Invalid
     }
-    internal class CardInfo
+    class CardInfo
     {
         public string CardNumber { get; set; }
         public string ExpDate { get; set; }

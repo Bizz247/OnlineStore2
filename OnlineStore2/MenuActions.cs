@@ -6,7 +6,7 @@ using Online_Store;
 
 namespace OnlineStore2
 {
-    internal static class MenuActions
+    static class MenuActions
     {
         #region MenuOption
         public static string ShowMainMenu()
@@ -58,6 +58,7 @@ namespace OnlineStore2
             }
 
         }
+
 
         public static void exit()
         {
