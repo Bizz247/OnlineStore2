@@ -28,9 +28,18 @@ namespace Online_Store
             item.Seller = seller;
             inventoryDatabase.Add(item);
         }
-        public static void delInventoryItem()
+        public static void delInventoryItem(string productname)
         {
-
+           var itemsToDelete = inventoryDatabase.Where(a => a.ProductName.Contains(productname));
+            if (itemsToDelete.Count() != 0)
+            foreach (InventoryItem item in itemsToDelete){
+                inventoryDatabase.Remove(item);
+            }
+            else
+            {
+                Console.Write("No items named " + productname + " found.");
+            }
+            
         }
         public static DateTime generateDateCreated()
         {
