@@ -4,8 +4,24 @@ using System.Text;
 
 namespace Online_Store
 {
+    
     class ShoppingCart
     {
-        public InventoryItem Item { get; private set; }
+       private List<InventoryItem > Cart = new List<InventoryItem>();
+
+        public static void addItemToCart(InventoryItem item)
+        {
+
+        }
+
+        public static void removeItemFromCart(InventoryItem item)
+        {
+
+        }
+
+        public static void purchaseItemsInCart(InventoryItem item)
+        {
+
+        }
     }
 }
