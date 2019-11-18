@@ -11,16 +11,16 @@ namespace OnlineStore2
         #region MenuOption
         public static string ShowMainMenu()
         {
-            Console.WriteLine("Please select and option of what you would like to do.");
+            Console.WriteLine("Please select and option of what you would like to do");
             Console.WriteLine("1. Add a new user");
             Console.WriteLine("2. Get all users");
             Console.WriteLine("3. Search for a user by email");
-            Console.WriteLine("4. delete user");
+            Console.WriteLine("4. Delete user");
             Console.WriteLine("5. View store inventory");
             Console.WriteLine("6. View Shopping Cart");
-            Console.WriteLine("7. add item to shopping cart");
-            Console.WriteLine("8. remove item from shopping cart.");
-            Console.WriteLine("9. purchase items in cart");
+            Console.WriteLine("7. Add item to shopping cart");
+            Console.WriteLine("8. Remove item from shopping cart");
+            Console.WriteLine("9. Purchase items in cart");
             Console.WriteLine("10. Exit");
             var option = Console.ReadLine();
             Console.Write("");
@@ -156,6 +156,13 @@ namespace OnlineStore2
                 Console.WriteLine("3. return to main menu");
             }
 
+        }
+        public static void returnToMainMenu()
+        {
+            Console.WriteLine("Press enter to return to the main menu");
+            Console.ReadLine();
+            Console.Clear();
+            ShowMainMenu();
         }
 
 

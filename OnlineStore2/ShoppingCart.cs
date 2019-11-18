@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OnlineStore2;
 
 namespace Online_Store
 {
@@ -19,16 +20,16 @@ namespace Online_Store
         #endregion
 
         #region Methods
-        private static int updateAccountNumber()
+
+        //Private Methods
+        private static int updateTotalItemsInCartNumber()
         {
             totalCartItems++;
             return totalCartItems;
         }
-        public static IEnumerable<ShoppingCart> getAllCartItems()
-        {
-            return Cart;
-        }
-        public static void addItemToCart(InventoryItem item, int quantity)
+
+        //Private Void Methods
+        private static void addItemToCart(InventoryItem item, int quantity)
         {
             //check cart first to see if an item already exists, if it does update the quanity, if it does not add it
             var checkCart = Cart.Where(i => i.ProductNumber == item.ProductNumber);
@@ -40,12 +41,12 @@ namespace Online_Store
                 cartItem.Price = item.Price;
                 cartItem.Seller = item.Seller;
                 cartItem.quantity = quantity;
-                cartItem.cartItemNumber = updateAccountNumber();
+                cartItem.cartItemNumber = updateTotalItemsInCartNumber();
                 Cart.Add(cartItem);
             }
 
         }
-        public static void removeItemFromCart(InventoryItem item, int quantity)
+        private static void removeItemFromCart(InventoryItem item, int quantity)
         {
             //Get current cart
             var currentCart = Cart;
@@ -72,6 +73,68 @@ namespace Online_Store
                 Console.WriteLine("item not found in cart: " + item.ProductName);
             }
         }
+
+        //Public Void Methods
+        public static void ItemToCartPrompt()
+        {
+            Console.Clear();
+            Console.WriteLine("Please provide the following product information");
+
+            Console.Write("Product Number:");
+            string productNumberInput = Console.ReadLine();
+            int productNumber = Int32.Parse(productNumberInput);
+
+            Console.Write("Quantity:");
+            string productQuantityInput = Console.ReadLine();
+            int productQuantity = Int32.Parse(productQuantityInput);
+
+            var productToAdd = InventoryItem.getProductByNumber(productNumber);
+            switch (productToAdd.Count())
+            {
+                case 0:
+                    Console.WriteLine("Could not find product with the number " + productNumber.ToString());
+                    break;
+
+                case 1:
+                    foreach (InventoryItem i in productToAdd)
+                    {
+                        addItemToCart(i, productQuantity);
+                        Console.WriteLine(productQuantityInput + " " + i.ProductName + " succesfully added to cart");
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Error: duplicate products with the same number found!");
+                    break;
+            }
+            MenuActions.returnToMainMenu();
+        }
+        public static void removeItemFromCartPrompt()
+        {
+            Console.WriteLine("Please provide the product number of the item you would like to remove from your cart, along with the quantity.");
+            var itemsInCart = getAllCartItems();
+            if (itemsInCart.Count() > 0)
+            {
+                foreach (ShoppingCart cartItem in itemsInCart)
+                {
+                    Console.WriteLine("####################");
+                    Console.WriteLine("Product Name: " + cartItem.ProductName);
+                    Console.WriteLine("Product Number: " + cartItem.ProductNumber);
+                    Console.WriteLine("Current Quantity: " + cartItem.quantity);
+                    Console.WriteLine("####################");
+                    Console.WriteLine();
+                }
+                Console.Write("Product Number:");
+                string productNumberInput = Console.ReadLine();
+                int productNumber = Int32.Parse(productNumberInput);
+
+                Console.Write("Quantity:");
+                string productQuantityInput = Console.ReadLine();
+                int productQuantity = Int32.Parse(productQuantityInput);
+
+            }
+
+        }
         public static void purchaseItemsInCart()
         {
             foreach (ShoppingCart item in Cart)
@@ -82,10 +145,10 @@ namespace Online_Store
                 var searchItem = InventoryItem.searchProductByName(item.ProductName);
 
                 //if multiple items found in inventory
-                if(searchItem.Count() > 1)
+                if (searchItem.Count() > 1)
                 {
                     var specificItemFromSeller = searchItem.Where(i => i.ProductNumber == item.ProductNumber);
-                    switch(specificItemFromSeller.Count())
+                    switch (specificItemFromSeller.Count())
                     {
                         case 1:
                             {
@@ -108,7 +171,7 @@ namespace Online_Store
                                 return;
                             }
 
-                        default :
+                        default:
                             {
                                 Console.WriteLine("Error: duplicate items found from seller!");
                                 return;
@@ -117,7 +180,7 @@ namespace Online_Store
                 }
                 else
                 {
-                    foreach(InventoryItem i in searchItem)
+                    foreach (InventoryItem i in searchItem)
                     {
                         if (i.InventoryQuanity == 0)
                         {
@@ -131,12 +194,18 @@ namespace Online_Store
                 }
                 foreach (InventoryItem i in searchItem)
                 {
-                    
+
                 }
             }
-            Cart.Remove(item);
-
         }
+
+        //Public Methods
+        public static IEnumerable<ShoppingCart> getAllCartItems()
+        {
+            return Cart;
+        }
+       
+        
         #endregion
     }
 }

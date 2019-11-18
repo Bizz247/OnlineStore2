@@ -33,7 +33,13 @@ namespace OnlineStore2
                         UserAccount.deleteUserFromDB();
                         break;
                     case "5":
-                        MenuActions.exit();
+                        InventoryItem.getAllInventoryItems();
+                        break;
+                    case "6":
+                        ShoppingCart.getAllCartItems();
+                        break;
+                    case "7":
+                        ShoppingCart.addItemToCart();
                         return;
                 }
             }

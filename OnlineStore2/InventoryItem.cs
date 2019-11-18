@@ -86,7 +86,7 @@ namespace Online_Store
         {
             return inventoryDatabase;
         }
-        public static IEnumerable<InventoryItem>searchProductByNumber(string productname)
+        public static IEnumerable<InventoryItem>searchProductByName(string productname)
         {
             return inventoryDatabase.Where(a => a.ProductName.Contains(productname));
         }
