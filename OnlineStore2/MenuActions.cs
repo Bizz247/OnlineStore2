@@ -84,46 +84,8 @@ namespace OnlineStore2
             {
                 case "1":
                     {
-                        while(true)
-                        {
-                            Console.WriteLine("Please provide which product number you would like + the quanity. Sperate values, by comma i.e apples,5");
-                            var input = Console.ReadLine();
-                            if (!input.Contains(","))
-                            {
-                                Console.WriteLine("invalid input, 2 values must be passed (product number, quanity");
-                            }
-                            else
-                            {
-                                string[] choiceParams = input.Split(",");
-                                if (choiceParams.Length > 2)
-                                {
-                                    Console.WriteLine("invalid input, too many commas passed only 1 comma is needed");
-                                }
-                                if (choiceParams.Length < 2)
-                                {
-                                    Console.WriteLine("invalid input, 2 values must be passed (product number,quanity");
-                                }
-                                if (choiceParams.Length == 2)
-                                {
-                                    try
-                                    {
-                                        var searchItem = InventoryItem.getProductByNumber(Int32.Parse(choiceParams[0]));
-                                        int quanity = Int32.Parse(choiceParams[1]);
-                                        foreach (InventoryItem item in searchItem)
-                                        {
-                                            ShoppingCart.addItemToCart(item, quanity);
-                                            return;
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        Console.WriteLine("invalid input, only numerical values excepted, please try again.");
-                                    }
-
-                                }
-                            }
-                        }
-
+                        ShoppingCart.ItemToCartPrompt();
+                        break;
                     }
                 case "2":
                     {

@@ -46,11 +46,11 @@ namespace Online_Store
             }
 
         }
-        private static void removeItemFromCart(InventoryItem item, int quantity)
+        private static void removeItemFromCart(int productNumber, int quantity)
         {
             //Get current cart
             var currentCart = Cart;
-            var itemToRemove = currentCart.Where(i => i.ProductNumber == item.ProductNumber);
+            var itemToRemove = currentCart.Where(i => i.ProductNumber == productNumber);
             if (itemToRemove.Count() != 0)
             {
                 foreach (ShoppingCart i in itemToRemove)
@@ -58,6 +58,7 @@ namespace Online_Store
                     if (i.quantity < quantity)
                     {
                         Cart.Remove(i);
+                        Console.WriteLine(i.ProductName + " successfully removed from cart.");
                     }
                     else
                     {
@@ -65,13 +66,30 @@ namespace Online_Store
                         Cart.Remove(i);
                         i.quantity = i.quantity - quantity;
                         Cart.Add(i);
+                        Console.WriteLine(i.ProductName + " quantity updated in cart.");
                     }
+
                 }
             }
             else
             {
-                Console.WriteLine("item not found in cart: " + item.ProductName);
+                Console.WriteLine("item not found in cart..");
+                MenuActions.returnToMainMenu();
             }
+        }
+        private static int getProductNumber()
+        {
+            Console.Write("Product Number:");
+            string productNumberInput = Console.ReadLine();
+            int productNumber = Int32.Parse(productNumberInput);
+            return productNumber;
+        }
+        private static int getProductQuantity()
+        {
+            Console.Write("Quantity:");
+            string productQuantityInput = Console.ReadLine();
+            int productQuantity = Int32.Parse(productQuantityInput);
+            return productQuantity;
         }
 
         //Public Void Methods
@@ -79,16 +97,10 @@ namespace Online_Store
         {
             Console.Clear();
             Console.WriteLine("Please provide the following product information");
-
-            Console.Write("Product Number:");
-            string productNumberInput = Console.ReadLine();
-            int productNumber = Int32.Parse(productNumberInput);
-
-            Console.Write("Quantity:");
-            string productQuantityInput = Console.ReadLine();
-            int productQuantity = Int32.Parse(productQuantityInput);
-
+            int productNumber = getProductNumber();
+            int productQuantity = getProductQuantity();
             var productToAdd = InventoryItem.getProductByNumber(productNumber);
+
             switch (productToAdd.Count())
             {
                 case 0:
@@ -99,7 +111,7 @@ namespace Online_Store
                     foreach (InventoryItem i in productToAdd)
                     {
                         addItemToCart(i, productQuantity);
-                        Console.WriteLine(productQuantityInput + " " + i.ProductName + " succesfully added to cart");
+                        Console.WriteLine(productQuantity.ToString() + " " + i.ProductName + " succesfully added to cart");
                     }
                     break;
 
@@ -124,14 +136,10 @@ namespace Online_Store
                     Console.WriteLine("####################");
                     Console.WriteLine();
                 }
-                Console.Write("Product Number:");
-                string productNumberInput = Console.ReadLine();
-                int productNumber = Int32.Parse(productNumberInput);
-
-                Console.Write("Quantity:");
-                string productQuantityInput = Console.ReadLine();
-                int productQuantity = Int32.Parse(productQuantityInput);
-
+                int productNumber = getProductNumber();
+                int productQuantity = getProductQuantity();
+                removeItemFromCart(productNumber, productQuantity);
+                MenuActions.returnToMainMenu();
             }
 
         }
