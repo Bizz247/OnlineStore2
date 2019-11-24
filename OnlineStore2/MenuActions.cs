@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Online_Store;
 
@@ -11,6 +12,7 @@ namespace OnlineStore2
         #region MenuOption
         public static string ShowMainMenu()
         {
+            Console.Clear();
             Console.WriteLine("Please select and option of what you would like to do");
             Console.WriteLine("1. Add a new user");
             Console.WriteLine("2. Get all users");
@@ -23,7 +25,7 @@ namespace OnlineStore2
             Console.WriteLine("9. Purchase items in cart");
             Console.WriteLine("10. Exit");
             var option = Console.ReadLine();
-            Console.Write("");
+            Console.WriteLine("");
             return option;
         }
 
@@ -65,6 +67,7 @@ namespace OnlineStore2
         }
         public static void displayInventory()
         {
+            Console.Clear();
             var items = InventoryItem.getAllInventoryItems();
             foreach (InventoryItem item in items)
             {
@@ -94,37 +97,71 @@ namespace OnlineStore2
                     }
                 case "3":
                     {
-                        ShowMainMenu();
-                        break;
+                        return;
                     }
-            }
+                default:
+                    {
+                        return;
+                    }
+            }   
         }
+
         public static void displayShoppingCart()
         {
+            Console.Clear();
             var shoppingCartItems = ShoppingCart.getAllCartItems();
 
-            foreach (ShoppingCart item in shoppingCartItems)
+            if(shoppingCartItems.Count() == 0)
             {
-                Console.WriteLine("-----------------------");
-                Console.WriteLine("Product Number: " + item.ProductName);
-                Console.WriteLine("Product Name: " + item.ProductName);
-                Console.WriteLine("Price: " + item.Price);
-                Console.WriteLine("Seller: " + item.Seller);
-                Console.WriteLine("Inventory Quanity: " + item.quantity);
-                Console.WriteLine("-----------------------");
-                Console.WriteLine();
-                Console.WriteLine("1. Remove Item from Cart");
-                Console.WriteLine("2. View Inventory");
-                Console.WriteLine("3. return to main menu");
+                Console.WriteLine("##Shopping Cart is Empty##");
+                returnToMainMenu();
             }
+            else
+            {
+                foreach (ShoppingCart item in shoppingCartItems)
+                {
+                    Console.WriteLine("-----------------------");
+                    Console.WriteLine("Product Number: " + item.ProductName);
+                    Console.WriteLine("Product Name: " + item.ProductName);
+                    Console.WriteLine("Price: " + item.Price);
+                    Console.WriteLine("Seller: " + item.Seller);
+                    Console.WriteLine("Inventory Quanity: " + item.quantity);
+                    Console.WriteLine("-----------------------");
+                    Console.WriteLine();
+                    Console.WriteLine("1. Remove Item from Cart");
+                    Console.WriteLine("2. View Inventory");
+                    Console.WriteLine("3. return to main menu");
+                }
 
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        {
+                            ShoppingCart.removeItemFromCartPrompt();
+                            break;
+                        }
+                    case "2":
+                        {
+                            displayInventory();
+                            break;
+                        }
+                    case "3":
+                        {
+                            return;
+                        }
+                    default:
+                        {
+                            return;
+                        }
+                }
+            }
         }
+
         public static void returnToMainMenu()
         {
             Console.WriteLine("Press enter to return to the main menu");
             Console.ReadLine();
-            Console.Clear();
-            ShowMainMenu();
+            return;
         }
 
 

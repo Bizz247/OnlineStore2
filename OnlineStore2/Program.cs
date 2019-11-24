@@ -11,8 +11,9 @@ namespace OnlineStore2
         static void Main(string[] args)
         {
             Console.WriteLine("###-Welcome to Online Store v1-###");
-            
-            //Only exit if option 5 is selected
+            InventoryItem.preloadInventoryOnStart();
+            UserAccount.preloadUserOnStart();
+
             while (true)
             {
                 var option = MenuActions.ShowMainMenu();
@@ -33,13 +34,22 @@ namespace OnlineStore2
                         UserAccount.deleteUserFromDB();
                         break;
                     case "5":
-                        InventoryItem.getAllInventoryItems();
+                        MenuActions.displayInventory();
                         break;
                     case "6":
-                        ShoppingCart.getAllCartItems();
+                        MenuActions.displayShoppingCart();
                         break;
                     case "7":
-                        ShoppingCart.addItemToCart();
+                        ShoppingCart.ItemToCartPrompt();
+                        break;
+                    case "8":
+                        ShoppingCart.removeItemFromCartPrompt();
+                        break;
+                    case "9":
+                        ShoppingCart.purchaseItemsInCart();
+                        break;
+                    case "10":
+                        MenuActions.exit();
                         return;
                 }
             }

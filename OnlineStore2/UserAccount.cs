@@ -155,6 +155,34 @@ namespace Online_Store
             return Users.Where(a => a.EmailAddress == emailAddress);
         }
 
+        public static void preloadUserOnStart()
+        {
+            //AddressInfo
+            Address address = new Address();
+            address.City = "Beverly Hills";
+            address.State = "California";
+            address.Street = "2020 Doe Avenue";
+            address.ZipCode = "98210";
+
+            //PaymentCard
+            string CardNumber = "44120201213";
+            string SecurityCode = "555";
+            string ExpDate = "03/22";
+            var paymentCard = CardInfo.getCardInfo(CardNumber, SecurityCode, ExpDate);
+
+            //FullUserData
+            UserAccount user = new UserAccount();
+            user.FirstName = "John";
+            user.LastName = "Doe";
+            user.address = address;
+            user.EmailAddress = "John.Doe@contoso.com";
+            user.PhoneNumber = "657-5609";
+            user.PaymentCard = paymentCard;
+            user.addCreationDate();
+            user.updateLastUpdated();
+            user.updateAccountNumber();
+            Users.Add(user);
+        }
         #endregion
     }
 

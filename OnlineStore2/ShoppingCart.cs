@@ -55,18 +55,16 @@ namespace Online_Store
             {
                 foreach (ShoppingCart i in itemToRemove)
                 {
-                    if (i.quantity < quantity)
+                    if (i.quantity <= quantity)
                     {
                         Cart.Remove(i);
                         Console.WriteLine(i.ProductName + " successfully removed from cart.");
+                        return;
                     }
                     else
                     {
-                        //Remove old item first, update the quantity, add updated item
-                        Cart.Remove(i);
-                        i.quantity = i.quantity - quantity;
-                        Cart.Add(i);
-                        Console.WriteLine(i.ProductName + " quantity updated in cart.");
+                        Console.WriteLine("you do not have " + quantity + " of " + i.ProductName + " in cart.");
+                        return;
                     }
 
                 }
@@ -74,8 +72,26 @@ namespace Online_Store
             else
             {
                 Console.WriteLine("item not found in cart..");
-                MenuActions.returnToMainMenu();
+                return;
             }
+        }
+        private static void updateItemQuantity(int productNumber, int quantity)
+        {
+            //Get current cart
+            var currentCart = Cart;
+            var itemToRemove = currentCart.Where(i => i.ProductNumber == productNumber);
+            if (itemToRemove.Count() != 0)
+            {
+                foreach (ShoppingCart i in itemToRemove)
+                {
+                    //Remove old item first, update the quantity, add updated item
+                    Cart.Remove(i);
+                    i.quantity = i.quantity - quantity;
+                    Cart.Add(i);
+                    Console.WriteLine(i.ProductName + " quantity updated in cart.");
+                }
+            }
+
         }
         private static int getProductNumber()
         {

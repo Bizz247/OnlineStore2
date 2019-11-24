@@ -40,34 +40,44 @@ namespace Online_Store
                     break;
             }
         }
-        public static CardInfo getCardInfo()
+        public static CardInfo getCardInfo(string CardNumber = null, string CardExp = null, string SecurityCode = null)
         {
             CardInfo cardInfo = new CardInfo();
 
-            //Make sure the card number is a valid card number or try again
-            while (true)
+            //If values passed to method directly, generate CardInfo, if not prompt user for input
+            if (CardNumber != null && CardExp != null && SecurityCode != null)
             {
-                Console.Write("CardNumber:");
-                var cardNumber = Console.ReadLine();
-                cardInfo.getCreditCardType(cardNumber);
-                if (cardInfo.CardType != TypeOfCreditCard.Invalid)
-                {
-                    cardInfo.CardNumber = cardNumber;
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid card number, please try again.");
-                }
+                cardInfo.CardNumber = CardNumber;
+                cardInfo.ExpDate = CardExp;
+                cardInfo.SecurityCode = SecurityCode;
+                cardInfo.getCreditCardType(CardNumber);
             }
+            else
+            {
+                //Make sure the card number is a valid card number or try again
+                while (true)
+                {
+                    Console.Write("CardNumber:");
+                    var cardNumber = Console.ReadLine();
+                    cardInfo.getCreditCardType(cardNumber);
+                    if (cardInfo.CardType != TypeOfCreditCard.Invalid)
+                    {
+                        cardInfo.CardNumber = cardNumber;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid card number, please try again.");
+                    }
+                }
 
-
-            Console.Write("ExpDate:");
-            var expDate = Console.ReadLine();
-            Console.Write("SecurityCode:");
-            var securityCode = Console.ReadLine();
-            cardInfo.ExpDate = expDate;
-            cardInfo.SecurityCode = securityCode;
+                Console.Write("ExpDate:");
+                var expDate = Console.ReadLine();
+                Console.Write("SecurityCode:");
+                var securityCode = Console.ReadLine();
+                cardInfo.ExpDate = expDate;
+                cardInfo.SecurityCode = securityCode;
+            }
 
             return cardInfo;
         }
