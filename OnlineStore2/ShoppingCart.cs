@@ -44,6 +44,10 @@ namespace Online_Store
                 cartItem.cartItemNumber = updateTotalItemsInCartNumber();
                 Cart.Add(cartItem);
             }
+            else
+            {
+                updateItemQuantity(item.ProductNumber, quantity);
+            }
 
         }
         private static void removeItemFromCart(int productNumber, int quantity)
@@ -55,18 +59,24 @@ namespace Online_Store
             {
                 foreach (ShoppingCart i in itemToRemove)
                 {
-                    if (i.quantity <= quantity)
+                    if (i.quantity == quantity)
                     {
                         Cart.Remove(i);
                         Console.WriteLine(i.ProductName + " successfully removed from cart.");
                         return;
                     }
-                    else
+                    if (i.quantity > quantity)
+                    {
+                        int updateItemQuantity = i.quantity - quantity;
+                        i.quantity = updateItemQuantity;
+                        Console.WriteLine(i.ProductName + " quantity updated.");
+                        return;
+                    }
+                    if(i.quantity < quantity)
                     {
                         Console.WriteLine("you do not have " + quantity + " of " + i.ProductName + " in cart.");
                         return;
                     }
-
                 }
             }
             else
@@ -79,20 +89,15 @@ namespace Online_Store
         {
             //Get current cart
             var currentCart = Cart;
-            var itemToRemove = currentCart.Where(i => i.ProductNumber == productNumber);
-            if (itemToRemove.Count() != 0)
+            var itemToUpdate = currentCart.Where(i => i.ProductNumber == productNumber);
+            foreach (ShoppingCart i in itemToUpdate)
             {
-                foreach (ShoppingCart i in itemToRemove)
-                {
-                    //Remove old item first, update the quantity, add updated item
-                    Cart.Remove(i);
-                    i.quantity = i.quantity - quantity;
-                    Cart.Add(i);
-                    Console.WriteLine(i.ProductName + " quantity updated in cart.");
-                }
+                int updatedQuantity = i.quantity + quantity;
+                i.quantity = updatedQuantity;
+                Console.WriteLine(i.ProductName + " quantity updated in cart.");
             }
-
         }
+
         private static int getProductNumber()
         {
             Console.Write("Product Number:");

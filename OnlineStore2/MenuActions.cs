@@ -83,6 +83,7 @@ namespace OnlineStore2
             Console.WriteLine("1. Add Item to Cart");
             Console.WriteLine("2. View shopping cart");
             Console.WriteLine("3. return to main menu");
+
             switch (Console.ReadLine())
             {
                 case "1":
@@ -128,10 +129,10 @@ namespace OnlineStore2
                     Console.WriteLine("Inventory Quanity: " + item.quantity);
                     Console.WriteLine("-----------------------");
                     Console.WriteLine();
-                    Console.WriteLine("1. Remove Item from Cart");
-                    Console.WriteLine("2. View Inventory");
-                    Console.WriteLine("3. return to main menu");
                 }
+                Console.WriteLine("1. Remove Item from Cart");
+                Console.WriteLine("2. View Inventory");
+                Console.WriteLine("3. return to main menu");
 
                 switch (Console.ReadLine())
                 {
